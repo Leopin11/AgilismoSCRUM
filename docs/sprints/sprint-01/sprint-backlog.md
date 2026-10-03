@@ -1,56 +1,190 @@
-1. Registro de Usuario - Admin.
-
-Features: Crear formulario donde se defina su tipo de rol (Usuario - Admin).
-
-Tareas:
-
-1. Frontend (UI / Interfas de Usuario): 
-
-A. Diseño e implementación de la vista HTML/CSS: Crear la estructura del formulario de registro con campos (Nombre, Correo, Contraseña, Confirmar contraseña, Selección de Rol).
-
-B. Lógica de validación en cliente (JS):
-
-    * Validar campos obligatorios y formato de correo electrónico.
-
-    * Validar longitud mínima y coincidencia de contraseña.
-
-    * Capturar el valor seleccionado del rol (USER / ADMIN).
-
-C. Integración con API: Consumir el endpoint de registro mediante fetch o axios enviando el payload JSON.
-
-C. Manejo de estados de interfaz:
-
-    * Deshabilitar el botón de envío mientras se procesa la solicitud (estado loading).
-
-    * Mostrar notificaciones de éxito o mensajes de error según la respuesta del backend.
-
-2. Backend (Lógica de Negocio y Seguridad)
-
-A. Creación del DTO / Modelo de entrada: Definir la estructura del objeto de transferencia de datos con las validaciones básicas (Campos @NotNull, @Email, @NotBlank, etc.).
-
-B. Definición de Enum/Entidad de Roles: Crear/verificar el enumerado de roles (USER, ADMIN) en la arquitectura del servidor.
-
-C. Implementación del Endpoint / Controlador: Crear la ruta POST /api/users/register.
-
-D. Lógica de Servicio y Encriptación:
-
-    * Encriptar la contraseña del nuevo usuario antes de guardarla (usando Bcrypt/Argon2).
-
-    * Asignar el rol enviado y guardar la entidad en la base de datos.
-
-E. Seguridad del Endpoint: Restringir el acceso a la ruta para que únicamente usuarios con el rol ADMIN (mediante token JWT o sesión activa) puedan crear cuentas con priviliegios.
-
-3. Base de Datos
- Verificación/Ajuste de Tablas: Asegurar que las tablas de usuarios y roles (o la columna role) soporten correctamente los valores permitidos y sus relaciones.
-
-4. Calidad y Pruebas (QA / Testing)
-
-A. Pruebas unitarias/integración backend:
-
-    * Test de registro exitoso con rol USER y ADMIN.
-
-    * Test de intento de registro con correo duplicado o campos inválidos.
-
-    * Test de autorización (verificar que un usuario no autenticado o con rol USER no pueda llamar al endpoint).
-
-B. Pruebas de interfaz (Frontend): Probar el flujo completo en pantalla y verificar la correcta visualización de mensajes de éxito/error.
+# SPRINT BACKLOG
+## Proyecto: MapPal
+## Sprint 1 - Fundación de la Plataforma
+### Duración: 2 semanas
+ 
+---
+ 
+# Objetivo del Sprint
+ 
+Construir la base funcional de la plataforma MapPal mediante la implementación del sistema de usuarios, perfiles, reputación comunitaria y canales de interacción iniciales.
+ 
+---
+ 
+# Incremento Esperado
+ 
+Al finalizar el Sprint, un usuario podrá:
+ 
+- Registrarse en la plataforma.
+- Configurar su perfil.
+- Establecer idioma y residencia activa.
+- Visualizar su reputación inicial (Karma).
+- Acceder a canales comunitarios.
+- Crear publicaciones dentro de una ciudad o barrio.
+ 
+---
+ 
+# Backlog del Sprint
+ 
+## 1. Gestión de Usuarios Globales
+ 
+### Feature: Registro de Usuario
+ 
+#### Tareas Backend
+ 
+- Crear entidad Persona.
+- Crear repositorio PersonaRepository.
+- Crear servicio PersonService.
+- Crear DTO de registro.
+- Crear endpoint POST /register.
+- Validar identificador único.
+- Calcular edad automáticamente.
+ 
+#### Tareas Frontend
+ 
+- Diseñar formulario de registro.
+- Implementar validaciones de formulario.
+- Consumir API de registro.
+- Mostrar mensajes de éxito y error.
+ 
+#### Criterios de Aceptación
+ 
+- El usuario puede registrarse correctamente.
+- El identificador es único.
+- La edad se calcula automáticamente.
+ 
+---
+ 
+## 2. Gestión de Perfil
+ 
+### Feature: Perfil de Usuario
+ 
+#### Tareas Backend
+ 
+- Crear entidad Perfil.
+- Crear servicio de actualización de perfil.
+- Crear endpoint PUT /profile.
+ 
+#### Tareas Frontend
+ 
+- Diseñar página de perfil.
+- Mostrar información de usuario.
+- Permitir actualización de datos.
+ 
+#### Criterios de Aceptación
+ 
+- El usuario puede visualizar su perfil.
+- El usuario puede editar su información.
+ 
+---
+ 
+## 3. Configuración Regional
+ 
+### Feature: Residencia Activa e Idioma
+ 
+#### Tareas Backend
+ 
+- Crear catálogo de idiomas.
+- Registrar residencia activa.
+- Persistir configuración regional.
+ 
+#### Tareas Frontend
+ 
+- Selector de idioma.
+- Selector de residencia activa.
+ 
+#### Criterios de Aceptación
+ 
+- El usuario puede cambiar idioma.
+- El usuario puede establecer ciudad de residencia.
+ 
+---
+ 
+## 4. Sistema de Reputación
+ 
+### Feature: Karma Inicial
+ 
+#### Tareas Backend
+ 
+- Crear atributo karma.
+- Inicializar karma al registrarse.
+- Crear lógica de actualización futura.
+ 
+#### Tareas Frontend
+ 
+- Mostrar karma en perfil.
+- Mostrar nivel de confianza.
+ 
+#### Criterios de Aceptación
+ 
+- Todo usuario inicia con karma.
+- El karma es visible desde el perfil.
+ 
+---
+ 
+## 5. Canales Comunitarios
+ 
+### Feature: Gestión de Canales
+ 
+#### Tareas Backend
+ 
+- Crear entidad Canal.
+- Crear entidad Ciudad.
+- Crear entidad Barrio.
+- Implementar consultas por destino.
+ 
+#### Tareas Frontend
+ 
+- Crear listado de canales.
+- Crear pantalla de exploración.
+ 
+#### Criterios de Aceptación
+ 
+- El usuario puede consultar canales.
+- Los canales se organizan por destino.
+ 
+---
+ 
+## 6. Publicaciones Comunitarias
+ 
+### Feature: Publicaciones
+ 
+#### Tareas Backend
+ 
+- Crear entidad Publicacion.
+- Crear endpoint de creación.
+- Registrar ubicación GPS.
+ 
+#### Tareas Frontend
+ 
+- Crear formulario de publicación.
+- Adjuntar imágenes.
+- Mostrar publicaciones.
+ 
+#### Criterios de Aceptación
+ 
+- El usuario puede publicar contenido.
+- La publicación queda asociada al canal.
+ 
+---
+ 
+# Definición de Terminado (DoD)
+ 
+- Código implementado.
+- Compilación exitosa.
+- Pruebas unitarias aprobadas.
+- API documentada.
+- Frontend integrado con Backend.
+- Validaciones funcionando.
+- Revisión por el equipo realizada.
+ 
+---
+ 
+# Entregables
+ 
+- Módulo de usuarios.
+- Gestión de perfiles.
+- Configuración regional.
+- Sistema inicial de reputación.
+- Canales comunitarios.
+- Publicaciones básicas.
